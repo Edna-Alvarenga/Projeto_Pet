@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Página de cadastro de cliente para a clínica veterinária.">
+    <title>Cadastro de Cliente</title>
+    
+</head>
+<body>
+    <header>
+        <h1>Cadastro de Cliente</h1>
+    </header>
+    
+    <main>
+        <form action="{% url 'cadastro_cliente' %}" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Cadastrar</button>
+        </form>
+    </main>
+
+</body>
+</html>

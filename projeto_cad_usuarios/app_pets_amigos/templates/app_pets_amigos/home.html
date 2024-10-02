@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica Veterinária - Home</title>
+    {% load static %}  <!-- Carrega as tags estáticas do Django -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- Link para o CSS -->
+</head>
+<body>
+    <header>
+        
+        <h1>Bem-vindo à Pets Amigos </h1>
+        <style>
+            body{ background-image: url("{% static 'image/petsclinica.jpg' %}"); }
+            img { opacity : 0.5; }
+        </style>
+    </header>
+        
+    <main>
+        <!-- Seção de Serviços -->
+        <section id="servicos">
+            <h2>Nossos Serviços</h2>
+            <div class="servicos-container">
+                <div class="servico">
+                    <img src="{% static 'image/servico1.jpg' %}" width="150"
+                    <h3>Consulta Veterinária</h3>
+                    <p>Consulta com veterinários especializados para a saúde do seu pet.</p>
+                </div>
+                <div class="servico">
+                    <h3>Banho e Tosa</h3>
+                    <img src="{% static 'image/banho.jpg' %}" width="150"
+                    <p>Serviço de banho e tosa para deixar seu pet sempre limpo e bonito.</p>
+                </div>
+                <div class="servico">
+                    <img src="{% static 'image/servico3.jpg' %}" width="150"
+                    <h3>Vacinação</h3>
+                    <p>Vacinação para manter seu pet protegido contra doenças.</p>
+                </div>
+                <!-- Adicione mais serviços conforme necessário -->
+            </div>
+        </section>
+
+        <!-- Seção de Leva e Traz -->
+        <section id="leva-traz">
+            
+            <h2>Serviço de Leva e Traz</h2>
+            <div class="servico">
+                <img src="{% static 'image/taxipets.jpg' %}" width="150"
+                <p>Oferecemos o serviço de transporte especializado para levar e trazer seu pet com segurança e conforto. Para mais informações, entre em contato pelo nosso WhatsApp.</p>
+            </div>
+            <p>Oferecemos o serviço de transporte especializado para levar e trazer seu pet com segurança e conforto. Para mais informações, entre em contato pelo nosso WhatsApp.</p>
+        </section>
+
+        <!-- Seção de Contato via WhatsApp -->
+        <section id="whatsapp-contato">
+            <h2>Contato</h2>
+            <img src="{% static 'image/whats.png' %}" width="70"
+            <br>
+            <p>Entre em contato conosco via WhatsApp para agendar consultas, esclarecer dúvidas ou saber mais sobre nossos serviços:</p>
+            <a href="https://wa.me/5599999999999" target="_blank"> <!-- Substitua pelo número de WhatsApp -->
+                <button>Fale Conosco no WhatsApp</button>
+            </a>
+        </section>
+
+        <!-- Seção de Formas de Pagamento -->
+        <section id="pagamentos">
+            <h2>Formas de Pagamento</h2>
+            <p>Você pode pagar pelos nossos serviços usando as seguintes formas de pagamento:</p>
+            <ul>
+                <li>Pix<br></br><img src="{% static 'image/pix.png' %}" width="70"</li>
+                <li>Cartão de Crédito e Débito<br></br><img src="{% static 'image/cartao.gif' %}" width="70"</li>
+                <li>Dinheiro<br> 
+                    <img src="{% static 'image/dinheiro.png' %}" width="70"</li>
+                
+            </ul>
+        </section>
+    </main>
+    
+    <footer>
+        <center>
+            <a href="{% url 'login_cliente' %}">Login.</a>
+            <a href="{% url 'login_veterinario' %}">Login Veterinário aqui.</a>
+            <a href="{% url 'cadastro_cliente' %}">Cadastre-se aqui!</a>
+        </center>
+        <p>© 2024 Clínica Veterinária</p>
+    </footer>
+    
+    <script src="{% static 'script.js' %}"></script> <!-- Inclusão do JavaScript -->
+</body>
+</html>

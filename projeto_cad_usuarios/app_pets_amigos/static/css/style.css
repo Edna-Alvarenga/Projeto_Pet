@@ -1,0 +1,75 @@
+
+body {
+    
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; /* Cor de fundo */
+    
+}
+
+header {
+    background-color: #4caf4f52; /* Cor do cabeçalho */
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline; /* Exibe os itens na mesma linha */
+    margin-right: 20px; /* Espaço entre os links */
+}
+
+nav ul li a {
+    color: white; /* Cor dos links */
+    text-decoration: none; /* Remove o sublinhado */
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline; /* Sublinha ao passar o mouse */
+}
+
+main {
+    padding: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+img {
+    border-radius: 8px; /* Bordas arredondadas na imagem */
+    
+}
+
+body {
+    background: rgba(255, 255, 255, 0.1) url("{% static 'image/petsclinica.jpg' %}") no-repeat center center fixed;
+    background-size: cover;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Mantém o conteúdo sobre o fundo legível */
+main {
+    background-color: rgba(255, 255, 255, 0.1)no-repeat center center fixed; /* Fundo semitransparente para o conteúdo */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+
+
+
+   
+

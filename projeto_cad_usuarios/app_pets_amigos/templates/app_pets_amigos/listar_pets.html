@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Pets</title>
+</head>
+<body>
+    <header>
+        <h1>Meus Pets</h1>
+    </header>
+    
+    <main>
+        <ul>
+            {% for pet in pets %}
+                <li>{{ pet.nome }} - {{ pet.raca }} - {{ pet.peso }}kg</li>
+            {% empty %}
+                <li>Você ainda não cadastrou nenhum pet.</li>
+            {% endfor %}
+        </ul>
+    </main>
+</body>
+</html>
