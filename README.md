@@ -1,5 +1,5 @@
 
-# Projeto Pet Amigo
+# Projeto Pets Amigos
 
 Este projeto, desenvolvido em Django, é um sistema de gerenciamento para uma clínica veterinária, incluindo funcionalidades como cadastro de clientes, agendamento de consultas, gestão de pets, e mais.
 
