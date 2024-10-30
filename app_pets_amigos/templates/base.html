@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Pet Amigo</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilos do body */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #4a90e2, #145c9e); /* Gradiente de azul */
+            color: #333;
+            min-height: 100vh; /* Para ocupar toda a altura da tela */
+        }
+
+        /* Container principal para centralização */
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Estilos do main */
+        main {
+            background-color: rgba(255, 255, 255, 0.95); /* Fundo branco translúcido */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 800px; /* Largura máxima */
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
+    <!-- Modal -->
+<div class="modal fade" id="acaoRealizadaModal" tabindex="-1" role="dialog" aria-labelledby="acaoRealizadaModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="acaoRealizadaModalLabel">Ação Realizada</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          A ação foi realizada com sucesso!
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</body>
+<script>
+    // Função para exibir o modal
+    function mostrarModal() {
+        $('#acaoRealizadaModal').modal('show');
+    }
+
+    // Adiciona um evento de clique nas âncoras para mostrar o modal
+    document.addEventListener('DOMContentLoaded', function() {
+        // Seleciona todos os links de ação
+        const links = document.querySelectorAll('td a');
+        
+        links.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); // Previne o redirecionamento imediato
+
+                const url = this.href; // Obtém a URL do link
+
+                // Aqui você pode fazer uma chamada AJAX para realizar a ação se necessário
+                // Exemplo de chamada usando fetch (caso você precise fazer uma chamada AJAX):
+                fetch(url)
+                    .then(response => {
+                        if (response.ok) {
+                            mostrarModal(); // Mostra o modal se a resposta for bem-sucedida
+                            setTimeout(() => {
+                                window.location.reload(); // Atualiza a página após 2 segundos
+                            }, 2000); // Espera 2 segundos antes de atualizar
+                        } else {
+                            alert('Erro ao realizar a ação.'); // Exibe um alerta em caso de erro
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro:', error);
+                    });
+            });
+        });
+    });
+</script>
+
+</html>

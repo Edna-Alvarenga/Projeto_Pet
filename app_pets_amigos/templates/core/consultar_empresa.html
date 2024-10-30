@@ -1,0 +1,122 @@
+<!-- core/templates/core/consultar_empresa.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    /* Reset básico */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Estilos do body */
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #4a90e2, #145c9e); /* Gradiente de azul */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        color: #333;
+    }
+
+    /* Container principal para centralização */
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start; /* Para alinhar a tabela no topo do container */
+        min-height: 100vh;
+        width: 100%;
+        padding: 20px; /* Adicionando padding */
+    }
+
+    /* Estilos do main */
+    main {
+        background-color: rgba(255, 255, 255, 0.95); /* Fundo branco translúcido */
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        max-width: 800px; /* Largura máxima da tabela */
+        width: 100%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Título */
+    h1 {
+        font-size: 2rem;
+        color: #020609;
+        margin-bottom: 20px;
+    }
+
+    /* Estilos da tabela */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px; /* Espaço abaixo da tabela */
+    }
+
+    th, td {
+        padding: 12px;
+        border: 1px solid #b3b3b3;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    /* Link para voltar */
+    a {
+        display: inline-block;
+        margin-top: 15px;
+        color: #145c9e;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+    }
+
+    a:hover {
+        color: #0d3b66;
+    }
+  </style>
+
+  <div class="container">
+    <main>
+      <h1>Empresas Cadastradas</h1>
+
+      <table>
+          <thead>
+              <tr>
+                  <th>Nome</th>
+                  <th>Endereço</th>
+                  <th>Telefone</th>
+                  <th>Ações</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for empresa in empresas %}
+              <tr>
+                  <td>{{ empresa.nome }}</td>
+                  <td>{{ empresa.endereco }}</td>
+                  <td>{{ empresa.telefone }}</td>
+                  <td>
+                      <a href="{% url 'editar_empresa' empresa.id %}">Editar</a> |
+                      <a href="{% url 'excluir_empresa' empresa.id %}">Excluir</a>
+                  </td>
+              </tr>
+              {% empty %}
+              <tr>
+                  <td colspan="4">Nenhuma empresa cadastrada.</td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+
+      <a href="{% url 'cadastrar_empresa' %}">Cadastrar Nova Empresa</a>
+      <a href="{% url 'painel_usuario' %}">Voltar</a>
+    </main>
+  </div>
+{% endblock %}

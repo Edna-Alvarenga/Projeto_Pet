@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    /* Reset básico */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Estilos do body */
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #4a90e2, #145c9e); /* Gradiente de azul */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        color: #333;
+    }
+
+    /* Container principal para centralização */
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        width: 100%;
+        padding: 20px; /* Adicionando padding */
+    }
+
+    /* Estilos do main */
+    main {
+        background-color: rgba(255, 255, 255, 0.95); /* Fundo branco translúcido */
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        max-width: 800px; /* Largura máxima */
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Títulos */
+    h1 {
+        font-size: 2.5rem;
+        color: #020609;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        font-size: 2rem;
+        color: #020609;
+        margin: 20px 0;
+    }
+
+    /* Estilos da lista */
+    ul {
+        list-style-type: none; /* Remove marcadores */
+        padding: 0;
+        text-align: left; /* Alinhamento à esquerda */
+    }
+
+    li {
+        margin: 10px 0; /* Espaçamento entre itens */
+    }
+
+    a {
+        color: #145c9e;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    a:hover {
+        color: #0d3b66;
+    }
+
+    /* Estilos do botão de logout */
+    button {
+        background-color: #120101;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #393736;
+    }
+  </style>
+
+  <div class="container">
+    <main>
+      <h1>Painel do Usuário</h1>
+      <ul>
+          <li><a href="{% url 'cadastrar_empresa' %}">Cadastrar Empresa</a></li>
+          <li><a href="{% url 'consultar_empresa' %}">Consultar Empresas</a></li>
+          <li><a href="{% url 'cadastrar_servico' %}">Cadastrar Serviço</a></li>
+          <li><a href="{% url 'consultar_servicos' %}">Consultar Serviços</a></li>
+          <li><a href="{% url 'cadastrar_cliente' %}">Cadastrar Cliente</a></li>
+          <li><a href="{% url 'consultar_clientes' %}">Consultar Clientes</a></li>
+          <li><a href="{% url 'cadastrar_pet' %}">Cadastrar Pet</a></li>
+          <li><a href="{% url 'consultar_pets' %}">Consultar Pets</a></li>
+          <li><a href="{% url 'agendar_servico' %}">Agendar Serviços</a></li>
+          <li><a href="{% url 'consultar_agendamentos' %}">Consultar Serviços Agendados</a></li>
+          <li><a href="{% url 'faturamento' %}">Consultar o Faturamento</a></li>
+          <li><a href="{% url 'consultar_avaliacoes' %}">Consultar Avaliações de Atendimento</a></li>
+      </ul>
+
+      <h2>Agendamentos Pendentes</h2>
+      <ul>
+          {% for agendamento in agendamentos %}
+              <li>
+                  {{ agendamento.servico.nome }} - 
+                  <a href="{% url 'realizar_pagamento' agendamento.id %}">Pagar</a>
+              </li>
+          {% empty %}
+              <li>Não há agendamentos pendentes de pagamento.</li>
+          {% endfor %}
+      </ul>
+
+      <!-- Botão de Logout -->
+      <form action="{% url 'logout' %}" method="post" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit">Encerrar</button>
+      </form>
+    </main>
+  </div>
+{% endblock %}

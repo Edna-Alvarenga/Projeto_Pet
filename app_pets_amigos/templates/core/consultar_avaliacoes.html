@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Avaliações</h2>
+
+{% if avaliacoes %}
+    <ul>
+        {% for avaliacao in avaliacoes %}
+            <li>
+                <strong>Serviço:</strong> {{ avaliacao.agendamento.servico }}
+                <br>
+                <strong>Data:</strong> {{ avaliacao.agendamento.data }}
+                <br>
+                <strong>Avaliação:</strong> {{ avaliacao.comentario }}
+                <br>
+                <strong>Nota:</strong> {{ avaliacao.nota }}
+                <br>
+                <strong>Cliente:</strong> {{ avaliacao.cliente.email }}  <!-- Exibe o e-mail do cliente -->
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Você ainda não fez nenhuma avaliação.</p>
+{% endif %}
+
+{% endblock %}

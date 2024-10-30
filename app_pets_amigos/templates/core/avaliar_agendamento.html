@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Avaliação do Serviço</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <div class="form-group">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+        </div>
+        <div class="form-group">
+            {{ form.nota.label_tag }}
+            {{ form.nota }}
+        </div>
+        <div class="form-group">
+            {{ form.comentario.label_tag }}
+            {{ form.comentario }}
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar Avaliação</button>
+    </form>
+</div>
+{% endblock %}

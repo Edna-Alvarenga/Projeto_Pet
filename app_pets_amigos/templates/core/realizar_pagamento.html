@@ -1,0 +1,45 @@
+<!-- templates/core/realizar_pagamento.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Realizar Pagamento</h1>
+
+<!-- Exibe informações do agendamento -->
+<h2>Detalhes do Agendamento</h2>
+<p><strong>Cliente:</strong> {{ agendamento.cliente.nome }}</p>
+<p><strong>Pet:</strong> {{ agendamento.pet.nome }}</p>
+<p><strong>Serviço:</strong> {{ agendamento.servico.nome }}</p>
+<p><strong>Data:</strong> {{ agendamento.data }}</p>
+<p><strong>Hora:</strong> {{ agendamento.hora }}</p>
+<p><strong>Valor:</strong> R$ {{ agendamento.servico.valor|floatformat:2 }}</p>
+
+<!-- Formulário de pagamento -->
+<form method="POST">
+    {% csrf_token %}
+    <h3>Selecione o Método de Pagamento:</h3>
+    <div>
+        <label>
+            <input type="radio" name="metodo_pagamento" value="dinheiro" required>
+            Dinheiro
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="radio" name="metodo_pagamento" value="pix" required>
+            Pix
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="radio" name="metodo_pagamento" value="cartao" required>
+            Cartão
+        </label>
+    </div>
+    <button type="submit">Realizar Pagamento</button>
+</form>
+
+<!-- Botão de cancelamento -->
+<a href="{% url 'consultar_agendamentos' %}">Cancelar</a>
+<a href="{% url 'painel_usuario' %}">Voltar</a>
+
+{% endblock %}

@@ -1,0 +1,159 @@
+<!-- templates/core/cadastrar_cliente.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #4a90e2, #145c9e); /* Gradiente de azul */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #333;
+}
+
+/* Container principal */
+main {
+    background-color: rgba(255, 255, 255, 0.95); /* Fundo branco translúcido */
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Título */
+h2 {
+    font-size: 2rem;
+    color: #145c9e;
+    margin-bottom: 20px;
+}
+
+/* Estilos do formulário */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+    text-align: left;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"] {
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #b3b3b3;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+button[type="button"],
+button[type="submit"] {
+    padding: 12px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="button"]:hover,
+button[type="submit"]:hover {
+    background-color: #357abd;
+}
+
+/* Link para voltar */
+a {
+    display: inline-block;
+    margin-top: 15px;
+    color: #145c9e;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0d3b66;
+}
+</style>
+<h2>Cadastrar Cliente</h2>
+<form method="POST" id="form-cliente">
+    {% csrf_token %}
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome" required>
+
+    <label for="cep">CEP:</label>
+    <input type="text" id="cep" name="cep" required>
+
+    <button type="button" onclick="buscarEndereco()">Buscar Endereço</button>
+
+    <label for="endereco">Endereço:</label>
+    <input type="text" id="endereco" name="endereco" required>
+
+    <label for="numero">Numero:</label>
+    <input type="number" id="numero" name="numero" required>
+
+    <label for="complemento">Complemento:</label>
+    <input type="text" id="complemento" name="complemento" required>
+
+    <label for="bairro">Bairro:</label>
+    <input type="text" id="bairro" name="bairro" required>
+
+    <label for="localidade">Cidade:</label>
+    <input type="text" id="localidade" name="localidade" required>
+
+    <label for="uf">Estado:</label>
+    <input type="text" id="uf" name="uf" required>
+
+    <label for="telefone">Telefone:</label>
+    <input type="text" id="telefone" name="telefone" required>
+
+    <label for="email">E-mail:</label>
+    <input type="email" id="email" name="email" required>
+
+    <button type="submit">Cadastrar</button>
+</form>
+{% if error_message %}
+    <div class="error">{{ error_message }}</div>
+{% endif %}
+
+<a href="{% url 'painel_usuario' %}">Voltar</a>
+<script>
+    function buscarEndereco() {
+        const cep = document.getElementById('cep').value;
+        if (cep.length === 8 || cep.length === 9) {
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.erro) {
+                        document.getElementById('endereco').value = data.logradouro;
+                        document.getElementById('bairro').value = data.bairro;
+                        document.getElementById('localidade').value = data.localidade;
+                        document.getElementById('uf').value = data.uf;
+                    } else {
+                        alert('CEP não encontrado!');
+                    }
+                })
+                .catch(() => alert('Erro ao buscar o CEP!'));
+        } else {
+            alert('Por favor, digite um CEP válido.');
+        }
+    }
+</script>
+{% endblock %}

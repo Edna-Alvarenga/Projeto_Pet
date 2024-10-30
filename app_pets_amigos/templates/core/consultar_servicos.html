@@ -1,0 +1,123 @@
+<!-- core/templates/core/consultar_servicos.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    /* Reset básico */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Estilos do body */
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #4a90e2, #145c9e); /* Gradiente de azul */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        color: #333;
+    }
+
+    /* Container principal para centralização */
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        width: 100%;
+        padding: 20px; /* Adicionando padding */
+    }
+
+    /* Estilos do main */
+    main {
+        background-color: rgba(255, 255, 255, 0.95); /* Fundo branco translúcido */
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        max-width: 800px; /* Largura máxima da tabela */
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Título */
+    h1 {
+        font-size: 2rem;
+        color: #020609;
+        margin-bottom: 20px;
+    }
+
+    /* Estilos da tabela */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        border: 1px solid #b3b3b3;
+        padding: 12px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    /* Link para cadastrar novo serviço e voltar */
+    a {
+        display: inline-block;
+        margin-top: 15px;
+        color: #145c9e;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+    }
+
+    a:hover {
+        color: #0d3b66;
+    }
+  </style>
+
+  <div class="container">
+    <main>
+      <h1>Serviços Cadastrados</h1>
+      <table>
+          <thead>
+              <tr>
+                  <th>Nome</th>
+                  <th>Descrição</th>
+                  <th>Tempo de Serviço</th>
+                  <th>Valor</th>
+                  <th>Empresa</th>
+                  <th>Ações</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for servico in servicos %}
+              <tr>
+                  <td>{{ servico.nome }}</td>
+                  <td>{{ servico.descricao }}</td>
+                  <td>{{ servico.tempo_servico }}</td>
+                  <td>{{ servico.valor_servico }}</td>
+                  <td>{{ servico.empresa.nome }}</td>
+                  <td>
+                      <a href="{% url 'editar_servico' servico.id %}">Editar</a> |
+                      <a href="{% url 'excluir_servico' servico.id %}">Excluir</a>
+                  </td>
+              </tr>
+              {% empty %}
+              <tr>
+                  <td colspan="6">Nenhum serviço cadastrado.</td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+      <a href="{% url 'cadastrar_servico' %}">Cadastrar Novo Serviço</a>
+      <a href="{% url 'painel_usuario' %}">Voltar</a>
+    </main>
+  </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+<!-- excluir_servico.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excluir Serviço</title>
+</head>
+<body>
+    <h1>Excluir Serviço</h1>
+    <p>Tem certeza que deseja excluir o serviço "{{ servico.nome }}"?</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Confirmar Excluir</button>
+    </form>
+    <a href="{% url 'consultar_servicos' %}">Cancelar</a>
+    <a href="{% url 'painel_usuario' %}">Voltar</a>
+</body>
+</html>

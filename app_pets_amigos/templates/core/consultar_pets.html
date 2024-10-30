@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    /* Reset básico */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Estilos do body */
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #4a90e2, #145c9e); /* Gradiente de azul */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        color: #333;
+    }
+
+    /* Container principal para centralização */
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        width: 100%;
+        padding: 20px; /* Adicionando padding */
+    }
+
+    /* Estilos do main */
+    main {
+        background-color: rgba(255, 255, 255, 0.95); /* Fundo branco translúcido */
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        max-width: 800px; /* Largura máxima da tabela */
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Título */
+    h2 {
+        font-size: 2rem;
+        color: #020609;
+        margin-bottom: 20px;
+    }
+
+    /* Estilos da tabela */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        border: 1px solid #b3b3b3;
+        padding: 12px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    /* Link para voltar */
+    a {
+        display: inline-block;
+        margin-top: 15px;
+        color: #145c9e;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+    }
+
+    a:hover {
+        color: #0d3b66;
+    }
+  </style>
+
+  <div class="container">
+    <main>
+      <h2>Pets Cadastrados</h2>
+      <table>
+        <tr>
+          <th>Nome</th>
+          <th>Espécie</th>
+          <th>Raça</th>
+          <th>Idade</th>
+          <th>Peso</th>
+          <th>Dono</th> <!-- Adicionando uma coluna para o Dono -->
+          <th>Ações</th>
+        </tr>
+        {% for pet in pets %}
+          <tr>
+            <td>{{ pet.nome }}</td>
+            <td>{{ pet.especie }}</td>
+            <td>{{ pet.raca }}</td>
+            <td>{{ pet.idade }}</td>
+            <td>{{ pet.peso }}</td>
+            <td>{{ pet.cliente.nome }}</td> <!-- Exibindo o nome do dono -->
+            <td>
+              <a href="{% url 'editar_pet' pet.pk %}">Editar</a>
+              <a href="{% url 'excluir_pet' pet.pk %}">Excluir</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="7">Nenhum pet cadastrado.</td>
+          </tr>
+        {% endfor %}
+      </table>
+      <a href="{% url 'painel_usuario' %}">Voltar</a>
+    </main>
+  </div>
+{% endblock %}

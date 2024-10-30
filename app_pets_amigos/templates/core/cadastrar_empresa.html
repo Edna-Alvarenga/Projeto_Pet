@@ -1,0 +1,135 @@
+<!-- templates/core/cadastrar_empresa.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    /* Reset básico */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Estilos do body */
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #4a90e2, #145c9e); /* Gradiente de azul */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        color: #333;
+    }
+
+    /* Container principal para centralização */
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        width: 100%;
+    }
+
+    /* Estilos do main */
+    main {
+        background-color: rgba(255, 255, 255, 0.95); /* Fundo branco translúcido */
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        max-width: 500px;
+        width: 100%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Título */
+    h1 {
+        font-size: 2rem;
+        color: #020609;
+        margin-bottom: 20px;
+    }
+
+    /* Estilos do formulário */
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    label {
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #333;
+        text-align: left;
+    }
+
+    input[type="text"], input[type="email"], textarea {
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #b3b3b3;
+        border-radius: 8px;
+        font-size: 1rem;
+        width: 100%;
+    }
+
+    button[type="submit"] {
+        padding: 12px;
+        background-color: white;
+        color: black;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #dee1e1;
+    }
+
+    /* Link para voltar */
+    a {
+        display: inline-block;
+        margin-top: 15px;
+        color: #145c9e;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+    }
+
+    a:hover {
+        color: #0d3b66;
+    }
+  </style>
+
+  <div class="container">
+    <main>
+      <h1>Cadastrar Empresa</h1>
+      <form method="post">
+        {% csrf_token %}
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" required>
+        
+        <label for="email">Email:</label>
+        <input type="email" name="email" required>
+        
+        <label for="cpf_cnpj">CPF/CNPJ:</label>
+        <input type="text" name="cpf_cnpj" required>
+        
+        <label for="telefone">Telefone:</label>
+        <input type="text" name="telefone" required>
+        
+        <label for="crmv">CRMV:</label>
+        <input type="text" name="crmv" required>
+        
+        <label for="endereco">Endereço:</label>
+        <textarea name="endereco" required></textarea>
+        
+        <button type="submit">Cadastrar</button>
+      </form>
+      <a href="{% url 'painel_usuario' %}">Voltar</a>
+    </main>
+  </div>
+{% endblock %}

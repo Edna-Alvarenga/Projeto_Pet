@@ -1,0 +1,12 @@
+<!-- templates/core/register.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Cadastrar Usuário</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- Renderiza o formulário -->
+    <button type="submit">Cadastrar</button>
+</form>
+<a href="{% url 'painel_usuario' %}">Voltar</a>
+{% endblock %}

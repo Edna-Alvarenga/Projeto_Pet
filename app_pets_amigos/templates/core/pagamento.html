@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Pagamento do Serviço</h2>
+<p><strong>Cliente:</strong> {{ agendamento.cliente.nome }}</p>
+<p><strong>Pet:</strong> {{ agendamento.pet.nome }}</p>
+<p><strong>Serviço:</strong> {{ agendamento.servico.nome }}</p>
+<p><strong>Data:</strong> {{ agendamento.data }}</p>
+<p><strong>Hora:</strong> {{ agendamento.hora }}</p>
+<p><strong>Valor:</strong> R$ {{ agendamento.valor }}</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <label>Forma de Pagamento:</label><br>
+    <input type="radio" name="forma_pagamento" value="dinheiro" required> Dinheiro<br>
+    <input type="radio" name="forma_pagamento" value="pix" required> PIX<br>
+    <input type="radio" name="forma_pagamento" value="cartao" required> Cartão<br>
+    <button type="submit">Realizar Pagamento</button>
+</form>
+
+<a href="{% url 'consultar_agendamentos' %}">Voltar</a>
+<a href="{% url 'painel_usuario' %}">Voltar tela principal</a>
+{% endblock %}

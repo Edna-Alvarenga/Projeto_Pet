@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Enviar Avaliação por E-mail</h2>
+    <p>Confirme o envio do e-mail de avaliação para o cliente.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Enviar E-mail de Avaliação</button>
+        <a href="{% url 'consultar_avaliacoes' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

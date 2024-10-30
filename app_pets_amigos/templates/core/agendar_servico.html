@@ -1,0 +1,185 @@
+<!-- templates/core/agendar_servico.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar Serviço - Pets Amigos</title>
+</head>
+<body>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilos do body */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #4a90e2, #145c9e); /* Gradiente de azul */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* Container principal */
+        main {
+            background-color: rgba(255, 255, 255, 0.95); /* Fundo branco translúcido */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Título */
+        h2 {
+            font-size: 2rem;
+            color: #020609;
+            margin-bottom: 20px;
+        }
+
+        /* Estilos do formulário */
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+            text-align: left;
+        }
+
+        input[type="text"],
+        input[type="datetime-local"],
+        select,
+        textarea {
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #b3b3b3;
+            border-radius: 8px;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        button[type="submit"] {
+            padding: 12px;
+            background-color: white;
+            color: black;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #dee1e1;
+        }
+
+        /* Link para voltar */
+        a {
+            display: inline-block;
+            margin-top: 15px;
+            color: #145c9e;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #0d3b66;
+        }
+    </style>
+
+    <main>
+        <h2>Agendar Serviço</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="cliente">Cliente:</label>
+            <select id="cliente" name="cliente" required>
+                <option value="">Selecione um cliente</option>
+                {% for cliente in clientes %}
+                    <option value="{{ cliente.id }}">{{ cliente.nome }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="pet">Pet:</label>
+            <select id="pet" name="pet" required>
+                <option value="">Selecione um cliente primeiro</option>
+            </select>
+
+            <label for="servico">Serviço:</label>
+            <select id="id_servico" name="servico" required>
+                <option value="">Selecione um serviço</option>
+                {% for servico in servicos %}
+                    <option value="{{ servico.id }}">{{ servico.nome }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="valor">Valor:</label>
+            <input type="text" id="id_valor" name="valor" readonly>
+
+            <label for="data">Data e Hora:</label>
+            <input type="datetime-local" id="data_hora" name="data_hora" required>
+
+            <label for="observacoes">Observações:</label>
+            <textarea id="observacoes" name="observacoes"></textarea>
+
+            <button type="submit">Agendar</button>
+        </form>
+        <a href="{% url 'painel_usuario' %}">Voltar</a>
+    </main>
+
+    <script>
+        // Atualizar a lista de pets quando um cliente é selecionado
+        document.getElementById('cliente').addEventListener('change', function() {
+            const clienteId = this.value;
+            const petSelect = document.getElementById('pet');
+
+            // Limpar a lista de pets
+            petSelect.innerHTML = '<option value="">Selecione um pet</option>';
+
+            if (clienteId) {
+                // Fazer uma requisição AJAX para buscar os pets do cliente
+                fetch(`/cliente/${clienteId}/pets/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        data.pets.forEach(pet => {
+                            const option = document.createElement('option');
+                            option.value = pet.id;
+                            option.text = pet.nome;
+                            petSelect.appendChild(option);
+                        });
+                    });
+            }
+        });
+
+        // Script para atualizar o campo valor com base no serviço selecionado
+        document.getElementById('id_servico').addEventListener('change', function() {
+            const servicoId = this.value;
+            if (servicoId) {
+                // Fazer uma requisição AJAX para buscar o valor do serviço
+                fetch(`/servico/${servicoId}/valor/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('id_valor').value = data.valor;
+                    });
+            } else {
+                document.getElementById('id_valor').value = '';
+            }
+        });
+    </script>
+</body>
+</html>
