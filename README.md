@@ -10,6 +10,7 @@ Comece clonando o projeto para o seu ambiente local:
 ```bash
 git clone https://github.com/Edna-Alvarenga/Projeto_Pet.git
 cd Projeto_Pet
+cd app_pets_amigos
 ```
 
 ## Requisitos
