@@ -35,6 +35,12 @@ Certifique-se de ter Python 3.x e pip instalados. Instale também o PostgreSQL.
    ```
 
 ## Configuração do Banco de Dados
+```bash
+pip install psycopg2
+ ```
+```bash
+pip install psycopg2-binary
+ ```
 
 No arquivo `settings.py`, configure o banco de dados PostgreSQL:
 
